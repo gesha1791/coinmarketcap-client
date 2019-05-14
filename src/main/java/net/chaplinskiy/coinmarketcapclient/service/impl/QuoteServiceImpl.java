@@ -68,6 +68,11 @@ public class QuoteServiceImpl implements QuoteService {
 
             PriceDTO priceDTO = g.fromJson(price, PriceDTO.class);
 
+            if(priceDTO.getPrice() == null){
+                throw new ResourceNotFoundException(quoteRequest.getCoinTicker() +
+                        "/" + quoteRequest.getConvertCurrency() + " not have price this " + quoteRequest.getDate());
+            }
+
 
             Ticker build = Ticker.builder()
                     .coinTicker(quoteRequest.getCoinTicker())
